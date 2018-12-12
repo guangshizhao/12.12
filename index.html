@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h4>你的愿望</h4>
+<textarea name="" id="" cols="30" rows="10"></textarea><br>
+<button id="btn">提交</button>
+<div id="box1">
+
+</div>
+</body>
+<script src="jquery-1.11.3.min.js"></script>
+<script>
+    show();//渲染
+    //添加按钮
+    $("#btn").click(function () {
+        let obj={
+            title:$("textarea").val()
+        }
+        $.post("/add",obj,function (data) {
+            console.log(data);
+                if(data.status=="-1"){
+                    console.log(data);
+                }else{
+                    show();
+                }
+        })
+    });
+    //渲染页面
+    function show() {
+        $.ajax({
+            url:"http://localhost:8080/show",
+            type:"get",
+            success:function (data) {
+                console.log(data);
+                let str="";
+                for (let i = 0; i <data.length ; i++) {
+                    str+=`
+                       <div class="${data[i].statics}">
+                        <center  ><a href="###" onclick="del('${data[i]._id}')">删除</a></center>
+                       <center >${data[i].title}</center>
+                       <center /*class="${data[i].statics}"*/ onclick="bian('${data[i]._id}')">✔</center>
+                       </div>
+                    `
+                }
+                box1.innerHTML=str;
+            }
+
+        })
+    }
+    //删除按钮
+    function del(id) {
+        $.ajax({
+            url:"http://localhost:8080/get?id="+id,
+            type:"get",
+            success:function (data) {
+                console.log(data);
+                show();
+            }
+        })
+    }
+    //变色按钮
+    function bian(id) {
+        console.log(id);
+        $.ajax({
+            url:"http://localhost:8080/bian?Id="+id+"&statics=purple",
+            type:"get",
+            success:function (data) {
+                console.log("变色",data);
+                if(data.status=="2"){
+                    show();
+                    console.log("实现愿望了");
+                }else{
+                    console.log("不许重复");
+                }
+            }
+        })
+
+    }
+
+
+</script>
+</html>
