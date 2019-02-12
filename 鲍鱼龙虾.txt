@@ -1,0 +1,163 @@
+52.null和undefined的区别？
+
+null是一个表示"无"的对象，转为数值时为0；undefined是一个表示"无"的原始值，转为数值时为NaN
+
+
+当声明的变量还未被初始化时，变量的默认值为undefined。
+null用来表示尚未存在的对象，常用来表示函数企图返回一个不存在的对象。
+undefined表示"缺少值"，就是此处应该有一个值，但是还没有定义.
+（1）变量被声明了，但没有赋值时，就等于undefined。
+（2) 调用函数时，应该提供的参数没有提供，该参数等于undefined。
+（3）对象没有赋值的属性，该属性的值为undefined。
+（4）函数没有返回值时，默认返回undefined。
+null表示"没有对象"，即该处不应该有值。典型用法是：
+（1） 作为函数的参数，表示该函数的参数不是对象。
+（2） 作为对象原型链的终点。
+前些时间面试官开会的时候特意说到简历造假的问题，有说到项目上说做电子商城的基本上是简历造假的，因为在中国的市场环境下一般的电子商城都不可能有存活的空间，没特色的东西根本找不到投资人。其次就是后台管理或者OA系统的，如果公司不达到一定规模的都不可能会做这种系统。
+
+
+4、HTML解析过程 ****
+浏览器加载 html 文件以后，渲染引擎会从上往下，一步步来解析HTML标签，大致过程如下：
+
+用户输入网址，浏览器向服务器发出请求，服务器返回html文件；
+
+渲染引擎开始解析 html 标签，并将标签转化为DOM节点，生成 DOM树；
+
+如果head 标签中引用了外部css文件，则发出css文件请求，服务器返回该文件，该过程会阻塞后面的解析；
+
+如果引用了外部 js 文件，则发出 js 文件请求，服务器返回后立即执行该脚本，这个过程也会阻塞html的解析；
+
+引擎开始解析 body 里面的内容，如果标签里引用了css 样式，就需要解析刚才下载好的css文件，然后用css来设置标签的样式属性，并生成渲染树；
+
+如果 body 中的 img 标签引用了图片资源，则立即向服务器发出请求，此时引擎不会等待图片下载完毕，而是继续解析后面的标签；
+
+服务器返回图片文件，由于图片需要占用一定的空间，会影响到后面元素的排版，因此引擎需要重新渲染这部分内容；
+
+如果此时 js 脚本中运行了 style.display="none"，布局被改变，引擎也需要重新渲染这部分代码；
+
+直到 html 结束标签为止，页面解析完毕。
+
+5.刘海屏适配??
+6.lass和scss的区别
+
+6.路由懒加载??
+
+7.vue能承载多大的项目?
+
+8.之前的jq项目 vue重购得来 (8年前 没有前端  前后台不分离   前台只写页面     逻辑在后台)
+
+9websocket的原理和应用?
+
+10.浏览器的缓存方案有哪些?  ==>强缓存		协商缓存?
+
+甚至于对于那些全新启动但是沿用旧框架的项目他们也没有动力与勇气去改变，
+我常常听他们说这样一句话：旧的架构已经被证明是可用和稳定的，那么我们就没有理由去改，
+如果新项目采用新架构却没有办法应付业务， 出了问题谁负责。总而言之一句话，他们害怕改变害怕走出舒适区。
+
+https://m.mamahao.com/  妈妈好
+http://m.muyingzhijia.com/ 母婴之家
+妈咪购 
+
+项目名称:海洽商城（pc端）  2018/03-2018/05   
+网址:http://www.haiqia2015.com/index.html
+项目描述： 海洽商城
+项目职责：负责首页和的商品分类资源渲染 ,数据交互
+技术要点：
+1.使用vue-cli搭建底层框架，vuex来实现全局数据的管理和各组件之间的传值；
+2.使用vue-router路由实现页面跳转；
+3.合理的使用钩子函数，对数据进行监听并请求渲染页面;
+4.使用axios与后台进行数据交互；
+
+http://www.ziyugou.cn/
+
+<template>
+    <footer>
+      
+            <dl class="tab-item" @click="switchTo('/miste')">
+                <dt><img :src="'/miste' === $route.path ? tabBarImgArr[0].selected : tabBarImgArr[0].normal" alt="首页"></dt>
+                <dd :class="{on: '/miste' === $route.path}">首页</dd>
+            </dl>
+            <dl class="tab-item" @click="switchTo('/service')">
+                <dt><img :src="'/service' === $route.path ? tabBarImgArr[1].selected : tabBarImgArr[1].normal" alt="客服"></dt>
+                <dd :class="{on: '/service' === $route.path}">客服</dd>
+            </dl>
+        
+            <dl class="tab-item" @click="switchTo('/classify')">
+                <dt><img :src="'/classify' === $route.path ? tabBarImgArr[2].selected : tabBarImgArr[2].normal" alt="分类"></dt>
+                <dd :class="{on: '/classify' === $route.path}">分类</dd>
+            </dl>
+      
+            <dl class="tab-item" @click="switchTo('/Cart')">
+                <dt><img :src="'/Cart' === $route.path ? tabBarImgArr[3].selected : tabBarImgArr[3].normal" alt="购物车"></dt>
+                <dd :class="{on: '/Cart' === $route.path}">购物车</dd>
+            </dl>
+        
+            <dl class="tab-item" @click="switchTo('/profiles')">
+                <dt><img :src="'/profiles' === $route.path ? tabBarImgArr[4].selected : tabBarImgArr[4].normal" alt="我的"></dt>
+                <dd :class="{on: '/profiles' === $route.path}">我的</dd>
+            </dl>
+        
+    </footer>
+</template>
+<script>
+export default {
+    data(){
+        return {
+            tabBarImgArr:[   //图片切换
+                {normal: require('./../../static/img/sy2.png'), selected: require('./../../static/img/sy1.png')},
+                {normal: require('./../../static/img/kf2.png'), selected: require('./../../static/img/kf1.png')},
+                {normal: require('./../../static/img/fl2.png'), selected: require('./../../static/img/fl1.png')},
+                {normal: require('./../../static/img/gwc2.png'), selected: require('./../../static/img/gwc1.png')},
+                {normal: require('./../../static/img/wd2.png'), selected: require('./../../static/img/wd1.png')}
+            ]
+        }
+    },
+    methods:{
+    switchTo(path){
+      // console.log(this.$router)
+      this.$router.replace(path)
+    }
+  }
+}
+</script>
+<style>
+    footer{
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        height: 1rem;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        background: rgb(239, 239, 241, 0.8);
+        border-top:1px solid #cccccc; 
+    }
+    footer a{
+        display: inline-block;
+        flex: 1;
+        text-align: center;
+    }
+    dd{
+        font-size: 12px;
+    }
+     .tab-item{
+        display:flex;
+        flex:1;
+        flex-direction:column;
+        align-items:center;
+        justify-content: center;
+        font-size: 14px;
+        color: #666;
+     }
+      
+      img{
+        width: 26%;
+        margin-left:28px;
+      }
+      .on{
+          color:#d81e06;
+      }
+       
+</style>
+
+
